@@ -80,7 +80,11 @@ export const getPost = async (req, res) => {
 export const addPost = async (req, res) => {
   const { postData, postDetail } = req.body;
   const tokenUserId = req.userId;
-  console.log("TOKEN USERID", tokenUserId);
+
+  // Remove accidental 'user' field from postData if present
+  if (postData && 'user' in postData) {
+    delete postData.user;
+  }
 
   try {
     const newPost = await prisma.post.create({
