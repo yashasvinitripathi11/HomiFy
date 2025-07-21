@@ -10,7 +10,15 @@ import userRoute from "./routes/user.route.js";
 
 const app = express();
 
- app.use(cors({ origin: process.env.FRONTEND_URL, credentials: true }));
+//  app.use(cors({ origin: process.env.FRONTEND_URL, credentials: true }));
+app.use(cors({
+  origin: (origin, callback) => {
+    console.log("Incoming request origin:", origin);
+    callback(null, true);
+  },
+  credentials: true,
+}));
+
 app.use(express.json());
 app.use(cookieParser());
 
