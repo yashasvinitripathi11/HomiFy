@@ -31,6 +31,12 @@ export const getPost = async (req, res) => {
   const { id } = req.params;
   const token = req.cookies?.token;
 
+  // Validate MongoDB ObjectId (24 hex chars)
+  const objectIdRegex = /^[a-f\d]{24}$/i;
+  if (!objectIdRegex.test(id)) {
+    return res.status(400).json({ message: "Invalid post ID" });
+  }
+
   try {
     const post = await prisma.post.findUnique({
       where: { id },
@@ -74,6 +80,7 @@ export const getPost = async (req, res) => {
 export const addPost = async (req, res) => {
   const { postData, postDetail } = req.body;
   const tokenUserId = req.userId;
+  console.log("TOKEN USERID", tokenUserId);
 
   try {
     const newPost = await prisma.post.create({
