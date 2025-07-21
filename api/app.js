@@ -8,10 +8,9 @@ import userRoute from "./routes/user.route.js";
 
 const app = express();
 
-app.use(cors({
-  origin: ['https://homi-fy-xydg.vercel.app'], // frontend domain
-  credentials: true
-}));
+app.use(cors(
+  "*"
+ ));
 
 app.use(express.json());
 app.use(cookieParser());
