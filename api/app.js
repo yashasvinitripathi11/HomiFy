@@ -11,10 +11,7 @@ import userRoute from "./routes/user.route.js";
 const app = express();
 
 //  app.use(cors({ origin: process.env.FRONTEND_URL, credentials: true }));
-const allowedOrigins = [
-  'https://homi-fy.vercel.app',
-  'https://homi-fy-eas9.vercel.app',
-];
+const allowedOrigins = [process.env.FRONTEND_URL];
 
 app.use(cors({
   origin: function (origin, callback) {
